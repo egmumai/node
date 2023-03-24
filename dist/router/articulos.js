@@ -25,7 +25,8 @@ articulosRoutes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, functio
     skip = skip * 10;
     const arts = yield articulos_model_1.Articulo.find()
         .sort({ _id: -1 })
-        .limit(skip)
+        .skip(skip)
+        .limit(10)
         .exec();
     res.json({
         ok: true,

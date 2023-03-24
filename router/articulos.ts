@@ -14,11 +14,12 @@ articulosRoutes.get('/',async(req:Request,res:Response)=>{
     let pagina =Number(req.query.pagina)|| 1;
     let skip =pagina-1;
     skip=skip*10;
+    
      const arts= await Articulo.find()
                                .sort({_id:-1})
-                               .limit(skip)
+                               .skip( skip )
+                               .limit(10)
                                .exec();
-
     res.json({
         ok:true,
         pagina,
