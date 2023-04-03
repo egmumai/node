@@ -9,6 +9,7 @@ const articulos_1 = __importDefault(require("./router/articulos"));
 const config_1 = require("./database/config");
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
+const busqueda_1 = __importDefault(require("./router/busqueda"));
 const server = new server_1.default();
 //body parser
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
@@ -19,6 +20,7 @@ server.app.use((0, cors_1.default)({ origin: true, credentials: true }));
 server.app.use((0, express_fileupload_1.default)());
 //Rutas de mi app
 server.app.use('/articulos', articulos_1.default);
+server.app.use('/busqueda', busqueda_1.default);
 //Conetar DB
 // Llamar a la función dbConnection para conectarse a la base de datos
 (0, config_1.dbConnection)()

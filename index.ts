@@ -5,6 +5,7 @@ import { dbConnection } from './database/config';
 
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload'
+import busquedaRoutes from './router/busqueda';
 const server=new Server();
 //body parser
 
@@ -19,6 +20,7 @@ server.app.use(cors({origin:true,credentials:true}))
 server.app.use(fileUpload());
 //Rutas de mi app
 server.app.use('/articulos',articulosRoutes)
+server.app.use('/busqueda',busquedaRoutes)
 
 //Conetar DB
 // Llamar a la función dbConnection para conectarse a la base de datos

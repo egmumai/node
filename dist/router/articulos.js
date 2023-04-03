@@ -62,10 +62,11 @@ articulosRoutes.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, func
     if (!(0, mongoose_1.isValidObjectId)(id)) {
         return res.status(400).json({ error: 'ID no válido' });
     }
-    const arts = yield articulos_model_1.Articulo.findById(id);
+    const art = yield articulos_model_1.Articulo.findById(id);
+    console.log(art);
     res.json({
         ok: true,
-        arts
+        art
     });
 }));
 //.....................................................................................................................//

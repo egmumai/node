@@ -54,32 +54,38 @@ articulosRoutes.post('/',(req:Request,res:Response)=>{
 });
 //.....................................................................................................................//
 articulosRoutes.get('/:id',async(req:Request,res:Response)=>{
+
   const id=req.params.id;
+
+  
   if (!isValidObjectId(id)) {
       return res.status(400).json({ error: 'ID no válido' });
   }
-   const arts= await Articulo.findById(id)
+   const art= await Articulo.findById(id)
+
    res.json({
       ok:true,
-      arts
+      art
   })
 })
 //.....................................................................................................................//
 articulosRoutes.post('/update',(req:Request,res:Response)=>{
 
      const art ={
+        _id:req.body._id,
         nombre:req.body.nombre,
-        gr:req.body.gr,
+        qr:req.body.qr,
         volumen:req.body.volumen,
         descripcion:req.body.descripcion,
-        precio:req.body.precio,
+        precio:Number(req.body.precio),
         observaciones:req.body.observaciones,
+        imgs:req.body.imgs
     }
-
-  const body=req.body;
-  const img = fileSystem.imgDeTempAArticulos('jesus');
+  const body=art;
+   const img = fileSystem.imgDeTempAArticulos('jesus');
   body.imgs=img;
-  Articulo.findByIdAndUpdate(body._id, { new: true })
+  
+  Articulo.findByIdAndUpdate(body._id,art, { new: true })
   .then((articuloDB: any) => {
     if (!articuloDB) {
       res.json({
@@ -87,6 +93,7 @@ articulosRoutes.post('/update',(req:Request,res:Response)=>{
         mensaje: "No existe este articulo en la DB"
       });
     } else {
+      
        res.json({
         ok: true,
        articuloDB
@@ -95,9 +102,8 @@ articulosRoutes.post('/update',(req:Request,res:Response)=>{
   })
   .catch((err: Error) => {
     console.error(err);
-    // manejar el error de alguna manera
-  });
-    })
+    });
+  })
     
 //.....................................................................................................................//
 articulosRoutes.delete('/:id',async (req:Request,res:Response)=>{
